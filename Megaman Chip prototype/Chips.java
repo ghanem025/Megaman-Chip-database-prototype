@@ -1,0 +1,234 @@
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.*;
+import java.text.SimpleDateFormat;  
+import java.util.Date; 
+import java.io.*; 
+import java.util.*;
+import java.util.Hashtable;
+import java.io.ObjectOutputStream;
+
+
+public class Chips  implements Serializable {
+  private static final long serialVersionUID = 6529685098267757690L;
+  public static ArrayList customer = new ArrayList();
+  public static boolean menu = true;
+  public static String name;
+  public static int num =0;
+  public static BufferedReader br;
+  public static Hashtable <Integer,Chips> hash = new Hashtable<Integer,Chips>();
+  public static String chipName;
+  private static int chipDamage;
+  private static String chipElement;
+  private static String chipType;
+
+  
+  public Chips(String name , int damage ,String element , String type){
+    this.chipName = name;
+    this.chipDamage = damage;
+    this.chipElement = element;
+    this.chipType = type;
+    
+  }
+
+  public static void main(String[] args) throws IOException {
+    //System.out.println(date);
+
+    if(hash.size()>=30){
+       System.out.println("sorry your folder has exceeded the maximum amount of chips");
+     }
+    /*
+    Scanner sc = new Scanner (System.in);
+    
+    System.out.println("what is the Chips name");
+    name = sc.nextLine();
+    
+    System.out.println("What is the Chips damage");
+    int damage = sc.nextInt();
+    
+    System.out.println("What is the Chips letter");
+    String letter = sc.nextLine();
+    
+    System.out.println("What is the element of the chip");
+    String element = sc.nextLine();
+    
+    System.out.println("What is the type of the chip");
+    String type = sc.nextLine();
+
+    Chips chip = new Chips(name,damage,element,type);
+    */
+   // obj objIO = new obj(1);        
+    //writetofile(chip);
+   
+    
+    int hp;
+    int selection = 0;
+    //Scanner sc = new Scanner (System.in);
+    //load();
+
+  /*  while ( menu ==true){
+      System.out.println("What would you like to do , Enter numbers 0 to 3 \n 0.To end the program \n 1.Display database \n 2.Enter a Chip \n 3.Search for a Chip");
+      selection = sc.nextInt();
+      if (selection == 0){
+        System.out.println("Good Bye");
+        break;
+      }
+      if (selection == 1){
+        displayfile();
+      }
+      else if ( selection ==2){
+
+     
+      }
+      else if ( selection ==3){
+        searchfile();
+      }
+    }
+    */
+  }
+  
+   public static void load()throws IOException{
+     BufferedReader br = new BufferedReader(new FileReader("chips.txt"));
+     String line = null;
+     int i =0;
+     Scanner sc = new Scanner (System.in);
+      
+     while((line= br.readLine()) != null){
+       
+         
+           //hash.put(i,line);
+
+           i++;
+     }
+     System.out.println(hash);
+  }
+  
+    public static void searchfile()throws IOException{
+      load();
+     
+      BufferedReader br = new BufferedReader(new FileReader("chips.txt"));
+      Scanner sc = new Scanner (System.in);
+      System.out.println("Type in the Chip you would like to search for ");
+      name = sc.nextLine();
+      String [] stat = null;
+      String n = null;
+      String line = null;
+    
+      int i = 0; 
+      if( hash.get(0) == null){
+        System.out.println("There are no Chips in the database");
+      }
+      if(hash.containsKey(29)){
+          System.out.println(line);
+
+      }
+      /*else{
+      //while((line= br.readLine()) != null){
+          //hash.keys();
+          stat = hash.get(i).split(",");
+          i++;
+          n = stat[0];
+          System.out.println(stat);
+          if (stat[0].equals(name) ){
+            System.out.println(line);
+            System.out.println("here are " + name + " files: " + Arrays.toString(stat));
+           // System.out.println(hash);
+            break;
+          }
+        }
+      for(int j = 0 ; j<stat.length;j++){
+        System.out.println(stat[j]);
+      }
+
+      if(stat[0] != name && hash.size() == i){
+        System.out.println("Sorry there is no Chip " + name +  " in the database");
+        searchfile();
+      }
+      }
+      */
+
+       
+    }
+    
+      
+  public static void displayfile() throws IOException {
+     // menu = true;
+    BufferedReader br = new BufferedReader(new FileReader("chips.txt"));
+    String line = null;
+    
+   // System.out.println("format : Name, Phone , Price , Date ");s
+    
+    while ((line = br.readLine()) != null) {
+
+          System.out.println(line);
+     }
+    if ( line == null){
+      System.out.println("there are currently no Chips in this database");
+    }
+  }
+  
+  public void writetofile(Object chip) {
+    try{
+    FileWriter fstream = new FileWriter("chips.txt",true);
+    BufferedWriter out = new BufferedWriter(fstream);
+    FileOutputStream f_out = new FileOutputStream("chips.dat");
+    ObjectOutputStream objectOut = new ObjectOutputStream(f_out);
+    
+    objectOut.writeObject(chip);
+    objectOut.close();
+    }catch(Exception ex){
+      ex.printStackTrace();
+    }
+    
+    
+       
+    /*for (int i =0 ; i<1;i++){
+      
+      //out.write(chip);
+      out.write(name+",");
+      out.write(damage +",");
+      out.write(element + ",");
+      out.write(type);
+      out.newLine();
+    }
+  
+    out.close();
+    
+    }
+    */
+  }
+
+  public void chip_name(String name){
+    this.chipName = name;
+    
+  }
+    public void chip_damage(int damage){
+    this.chipDamage = damage;
+    
+  }
+    public void chip_element(String element){
+      this.chipElement = element;
+    
+    }
+    public void chip_type(String type){
+      this.chipType = type;
+    
+    }
+    
+      @Override
+    public String toString() {
+        return new StringBuffer("chip: ").append(this.chipName)
+                .append(",damage: ").append(this.chipDamage).append(",elements:" ).append(this.chipElement).append(",type: ")
+          .append(this.chipType).toString();
+    }
+    
+    
+}
+
+
